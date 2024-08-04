@@ -69,7 +69,7 @@ const Login = async (req, res) => {
 
         res.status(200).json({
             message: 'success',
-            details:token
+            token:token
         })
 
     } catch (error) {
