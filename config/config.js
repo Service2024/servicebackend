@@ -20,7 +20,7 @@ module.exports={
     "username": "service_database_vtto_user",
     "password": "gY7HGU9IAfhQfebIAfsdV461UBeKAUXB",
     "database": "service_database_vtto",
-    "host":"dpg-cqpnc83v2p9s73cftqo0-a",
+    "host":"cqpnc83v2p9s73cftqo0-a.oregon-postgres.render.com",
     "port":5432,
     "dialect": "postgres"
   }
