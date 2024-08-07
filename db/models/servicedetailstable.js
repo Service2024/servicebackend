@@ -11,33 +11,44 @@ module.exports = sequelize.define("serviceDetailstable",{
     type: Sequelize.INTEGER
   },
   serviceName: {
-    allowNull:false,
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull:false
   },
   minPrice: {
-    allowNull:false,
     type: Sequelize.INTEGER,
+    allowNull:false
   },
   maxPrice: {
-    allowNull:false,
     type: Sequelize.INTEGER,
+    allowNull:false
   },
   serviceDescription: {
-    allowNull:false,
     type: Sequelize.STRING,
+    allowNull:false
   },
   aboutuserDescription: {
-    allowNull:false,
     type: Sequelize.STRING,
+    allowNull:false
   },
   diffServices: {
-    allowNull:false,
     type: Sequelize.STRING,
+    allowNull:false
   },
   qualification: {
+    type: Sequelize.STRING,
+    allowNull:false
+  },
+  user_id: {
+    type: Sequelize.INTEGER,
     allowNull:false,
-    type: Sequelize.STRING
+    references:{
+      Model:'UserTable',
+      key:'id'
+    },
+    onUpdate:"CASCADE",
+    onDelete:"CASCADE"
   }
+
 },{
   freezeTableName:true,
   modelName:"serviceDetailstable"

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const AddressDatabase = require('../db/models/address_table')
 const UserDatabase = require('../db/models/usertable')
+const Allservices=require('../db/models/servicedetailstable')
 
 const addUserAddress = async (req, res) => {
     try {
@@ -197,10 +198,13 @@ const alldetailsuser=async(req,res)=>{
         const getaddress=await AddressDatabase.findAll({
             where:{user_id:getparamId}
         })
-
+        const services=await Allservices.findAll({
+            where:{user_id:getparamId}
+        })
         res.status(200).json({
             getUser,
-            getaddress
+            getaddress,
+            services
         })
     }catch (error) {
         res.status(500).json({
