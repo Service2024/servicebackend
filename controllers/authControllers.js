@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const Signup = async (req, res) => {
     try {
-        const { firstname, lastname, email, phonenumber, password, userType } = req.body;
+        const { firstname, lastname, email, phonenumber, password, usertype } = req.body;
 
         if (!firstname, !lastname, !email, !phonenumber, !password) {
             return res.json({
@@ -21,7 +21,7 @@ const Signup = async (req, res) => {
             email,
             phonenumber,
             password: bcrypt_password,
-            userType: userType || '0'
+            usertype: usertype || '0'
         })
 
         if (newUser) {

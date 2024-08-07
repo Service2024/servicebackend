@@ -30,15 +30,15 @@ module.exports = {
       updatetoken: {
         type: Sequelize.STRING
       },
-      usertype:{
-        type:Sequelize.ENUM('0','1','2'),
-        defaultValue:'0'
+      usertype: {
+        type: Sequelize.ENUM('0', '1', '2'),
+        defaultValue: '0'
       },
-      createdat: {
+      createdAt: {  // Corrected column name
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedat: {
+      updatedAt: {  // Corrected column name
         allowNull: false,
         type: Sequelize.DATE
       }
