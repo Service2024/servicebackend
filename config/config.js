@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-module.exports={
+module.exports = {
   "development": {
     "username": process.env.DATABASE_USERNAME,
     "password": process.env.DATABASE_PASSWORD,
@@ -20,8 +20,14 @@ module.exports={
     "username": "service_database_vtto_user",
     "password": "gY7HGU9IAfhQfebIAfsdV461UBeKAUXB",
     "database": "service_database_vtto",
-    "host":"cqpnc83v2p9s73cftqo0-a.oregon-postgres.render.com",
-    "port":5432,
-    "dialect": "postgres"
+    "host": "cqpnc83v2p9s73cftqo0-a.oregon-postgres.render.com",
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false // You might need to set this to `true` based on your environment
+      }
+    }
   }
 }
