@@ -41,13 +41,16 @@ module.exports = sequelize.define('user_table',{
   },
   createdat: {
     allowNull: false,
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW // Sets the current timestamp by default
   },
   updatedat: {
     allowNull: false,
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW // Sets the current timestamp by default
   }
 },{
   freezeTableName:true,
-  modelName:'user_table'
+  modelName:'user_table',
+  timestamps:true
 })
