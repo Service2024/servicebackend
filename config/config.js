@@ -17,10 +17,10 @@ module.exports={
     "dialect": "mysql"
   },
   "production": {
-    "username": "postgres",
-    "password": "admin",
-    "database": "service_production",
-    "host":"localhost",
+    "username": "service_database_vtto_user",
+    "password": "gY7HGU9IAfhQfebIAfsdV461UBeKAUXB",
+    "database": "service_database_vtto",
+    "host":"dpg-cqpnc83v2p9s73cftqo0-a",
     "port":5432,
     "dialect": "postgres"
   }
