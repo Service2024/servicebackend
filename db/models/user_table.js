@@ -39,11 +39,11 @@ module.exports = sequelize.define('user_table',{
     type:Sequelize.ENUM('0','1','2'),
     defaultValue:'0'
   },
-  createdAt: {
+  createdat: {
     allowNull: false,
     type: Sequelize.DATE
   },
-  updatedAt: {
+  updatedat: {
     allowNull: false,
     type: Sequelize.DATE
   }
