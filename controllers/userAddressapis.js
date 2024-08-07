@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const AddressDatabase = require('../db/models/address_table')
-const UserDatabase = require('../db/models/user_table')
+const UserDatabase = require('../db/models/usertable')
 
 const addUserAddress = async (req, res) => {
     try {
