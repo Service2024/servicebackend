@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express=require('express')
 const bcrypt = require('bcrypt')
-const UserDatabase=require('./db/models/user_table')
 const cors=require('cors')
 const app = express()
 app.use(cors())
