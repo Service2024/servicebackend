@@ -12,7 +12,25 @@ const Signup = async (req, res) => {
                 message: "Please fill all fields"
             })
         }
+        const existingEmailUser = await UserDatabase.findOne({
+            where: { email: email }
+        });
 
+        if (existingEmailUser) {
+            return res.status(409).json({
+                message: "Email already exists"
+            });
+        }
+
+        const existingPhoneUser = await UserDatabase.findOne({
+            where: { phonenumber: phonenumber }
+        });
+
+        if (existingPhoneUser) {
+            return res.status(409).json({
+                message: "Phone number already exists"
+            });
+        }
         const bcrypt_password = await bcrypt.hash(password, salt)
 
         const newUser = await UserDatabase.create({
@@ -156,7 +174,7 @@ const Profile = async (req, res) => {
         }
 
         const decode=jwt.verify(token,process.env.SECRET_KEY)
-
+        console.log(decode.id)
         if(!decode||!decode.id){
             {
                 return res.json({
