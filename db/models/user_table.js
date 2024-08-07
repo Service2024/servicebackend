@@ -32,6 +32,9 @@ module.exports = sequelize.define('user_table',{
   token: {
     type: Sequelize.STRING
   },
+  updatetoken:{
+    type: Sequelize.STRING
+  },
   userType:{
     type:Sequelize.ENUM('0','1','2'),
     defaultValue:'0'
