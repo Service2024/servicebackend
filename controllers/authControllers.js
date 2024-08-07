@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const UserDatabase = require('../db/models/user_table')
+const UserDatabase = require('../db/models/user')
 const salt = 15
 const jwt = require('jsonwebtoken')
 
