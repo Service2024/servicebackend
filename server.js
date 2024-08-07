@@ -51,11 +51,11 @@ app.post("/signup", async (req, res) => {
     }
 });
 const pathDir = process.env.PATH_DIR || ''; // Default to empty if not defined
-app.use(process.env.PATH_DIR,authrouter)
-app.use(process.env.PATH_DIR,userRouter)
-app.use(process.env.PATH_DIR,workerRouter)
+app.use(authrouter)
+app.use(userRouter)
+app.use(workerRouter)
 
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}${pathDir}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
