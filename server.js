@@ -9,7 +9,7 @@ app.use(express.json())
 const authrouter=require('./routers/authrouter')
 const userRouter=require('./routers/userrouters')
 const workerRouter=require('./routers/serviceRouters')
-const port=process.env.APP_PORT||6060
+const port = process.env.APP_PORT || 6060;
 
 app.get("/",(req,res)=>{
     res.send("hello")
@@ -37,26 +37,25 @@ app.post("/signup", async (req, res) => {
             email,
             phonenumber,
             password: bcrypt_password,
-            userType: userType || '0'  // Default userType to '0' if not provided
+            userType: userType || '0'
         });
-
-        // Respond with success
         res.status(201).json({
             message: 'User registered successfully'
         });
 
     } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error);
         res.status(500).json({
             message: "An error occurred while processing your request"
         });
     }
 });
+const pathDir = process.env.PATH_DIR || ''; // Default to empty if not defined
 app.use(process.env.PATH_DIR,authrouter)
 app.use(process.env.PATH_DIR,userRouter)
 app.use(process.env.PATH_DIR,workerRouter)
 
 
-app.listen(port,()=>{
-    console.log(`http://localhost:${port}${process.env.PATH_DIR}`)
-})
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}${pathDir}`);
+});
