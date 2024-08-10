@@ -164,27 +164,10 @@ const Updatepassword=async(req,res)=>{
 
 const Profile = async (req, res) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1]
-        if (!token) {
-            {
-                return res.json({
-                    message: "There is no token"
-                })
-            }
-        }
-
-        const decode=jwt.verify(token,process.env.SECRET_KEY)
-        console.log(decode.id)
-        if(!decode||!decode.id){
-            {
-                return res.json({
-                    message: "token invalid"
-                })
-            }
-        }
-
+        const userId=req.user.id;
+       
         const getDetails=await UserDatabase.findOne({
-            where:{id:decode.id}
+            where:{id:userId}
         })
         
         res.status(200).json({
@@ -199,37 +182,22 @@ const Profile = async (req, res) => {
 
 const UpdateProfile = async (req,res)=>{
     try{
-        const token=req.headers.authorization?.split(' ')[1]
-        if(!token){
-            {
-                return res.json({
-                    message: "There is no token"
-                })
-            }
-        }
-        const decode=jwt.verify(token,process.env.SECRET_KEY)
-        if(!decode||!decode.id){
-            {
-                return res.json({
-                    message: "token invalid"
-                })
-            }
-        }
+        const userId=req.user.id;
+
         const {firstname,lastname,email,phonenumber,password}=req.body;
         if(!firstname,!lastname,!email,!phonenumber,!password){
             return res.json({
                 message: "Please fill all fields"
             })
         }
-
-        const update_values={}
+         const update_values={}
         if(firstname) update_values.firstname=firstname
         if(lastname) update_values.lastname=lastname
         if(email) update_values.email=email
         if(phonenumber) update_values.phonenumber=phonenumber
         if(password) update_values.password=await bcrypt.hash(password,salt)
 
-        const[rowupdates]=await UserDatabase.update(update_values,{where:{id:decode.id}})
+        const[rowupdates]=await UserDatabase.update(update_values,{where:{id:userId}})
         if(!rowupdates){
             return res.json({
                 message: "PRoblem in update "

@@ -26,7 +26,7 @@ module.exports = {
     "dialectOptions": {
       "ssl": {
         "require": true,
-        "rejectUnauthorized": false // You might need to set this to `true` based on your environment
+        "rejectUnauthorized": false
       }
     }
   }

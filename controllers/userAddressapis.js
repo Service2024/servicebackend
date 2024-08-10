@@ -5,24 +5,8 @@ const Allservices=require('../db/models/servicedetailstable')
 
 const addUserAddress = async (req, res) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({
-                message: "token not found adding is not possible"
-            });
-        }
-
-        const decode = jwt.verify(token, process.env.SECRET_KEY)
-        console.log(decode.id)
-
-        if (!decode || !decode.id) {
-            return res.status(401).json({
-                message: "user not found adding is not possible"
-            })
-        }
-
+        const userId = req.user.id;
         const { address, city, state, postal_code } = req.body;
-
         if (!address, !city, !state, !postal_code) {
             return res.status(400).json({
                 message: 'please fill all fields'
@@ -34,7 +18,7 @@ const addUserAddress = async (req, res) => {
             city,
             state,
             postal_code,
-            user_id: decode.id
+            user_id:userId
         })
 
         if (createAddress) {
@@ -55,21 +39,9 @@ const addUserAddress = async (req, res) => {
 
 const getUserAddress = async (req, res) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1]
-        if (!token) {
-            return res.status(401).json({
-                message: "token not found adding is not possible"
-            });
-        }
-        const decode = jwt.verify(token, process.env.SECRET_KEY)
-        if (!decode || !decode.id) {
-            return res.status(401).json({
-                message: "user not found adding is not possible"
-            })
-        }
-
+        const userId = req.user.id;
         const getDetails = await AddressDatabase.findAll({
-            where: { user_id: decode.id }
+            where: { user_id: userId }
         })
 
         res.status(200).json({
@@ -85,19 +57,7 @@ const getUserAddress = async (req, res) => {
 
 const updateAddress = async (req, res) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1]
-        if (!token) {
-            return res.status(401).json({
-                message: "token not found adding is not possible"
-            });
-        }
-        const decode = jwt.verify(token, process.env.SECRET_KEY)
-        if (!decode || !decode.id) {
-            return res.status(401).json({
-                message: "user not found adding is not possible"
-            })
-        }
-
+        const userId = req.user.id;
         const { address, city, state, postal_code } = req.body;
         const addressId = req.params.id;
         const upAddress = {}
@@ -109,7 +69,7 @@ const updateAddress = async (req, res) => {
         const [updaAddrss] = await AddressDatabase.update(upAddress, {
             where: {
                 id: addressId,
-                user_id: decode.id
+                user_id: userId
             }
         })
         if (updaAddrss === 0) {
@@ -130,18 +90,7 @@ const updateAddress = async (req, res) => {
 
 const deleteAddress = async (req, res) => {
     try {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({
-                message: "token not found adding is not possible"
-            });
-        }
-        const decode = jwt.verify(token, process.env.SECRET_KEY)
-        if (!decode || !decode.id) {
-            return res.status(401).json({
-                message: "user not found adding is not possible"
-            })
-        }
+        const userId = req.user.id;
         const addressId = req.params.id;
         if (!addressId) {
             return res.status(400).json({
@@ -151,7 +100,7 @@ const deleteAddress = async (req, res) => {
         const delAddress = await AddressDatabase.destroy({
             where: {
                 id: addressId,
-                user_id: decode.id
+                user_id: userId
             }
         })
         if (delAddress === 0) {
@@ -174,18 +123,7 @@ const deleteAddress = async (req, res) => {
 const alldetailsuser=async(req,res)=>{
     try{
         getparamId=req.params.id;
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({
-                message: "token not found adding is not possible"
-            });
-        }
-        const decode = jwt.verify(token, process.env.SECRET_KEY)
-        if (!decode || !decode.id) {
-            return res.status(401).json({
-                message: "user not found adding is not possible"
-            })
-        }
+        const userId = req.user.id;
         if (!getparamId) {
             return res.status(400).json({
                 message: "Address ID is required."
