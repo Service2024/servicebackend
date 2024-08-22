@@ -27,7 +27,7 @@ module.exports = sequelize.define('UserTable',{
   },
   phonenumber: {
     allowNull:false,
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     unique:true
   },
   password: {
@@ -43,8 +43,17 @@ module.exports = sequelize.define('UserTable',{
   usertype:{
     type:Sequelize.ENUM('0','1','2'),
     defaultValue:'0'
+  },
+  createdAt: {
+    allowNull: false,
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE
   }
 },{
   freezeTableName:true,
   modelName:'UserTable',
+  timestamps: true
 })

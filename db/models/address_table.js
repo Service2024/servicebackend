@@ -23,7 +23,7 @@ module.exports = sequelize.define('address_table',{
     allowNull:false
   },
   postal_code: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull:false
   },
   user_id: {
@@ -35,8 +35,13 @@ module.exports = sequelize.define('address_table',{
     },
     onUpdate:"CASCADE",
     onDelete:"CASCADE"
+  },
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE
   }
 },{
   freezeTableName:true,
+  timestamps: true,
   modelName:'address_table'
 })

@@ -19,10 +19,18 @@ module.exports = {
         type: Sequelize.STRING
       },
       postal_code: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       user_id: {
         type: Sequelize.INTEGER
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },

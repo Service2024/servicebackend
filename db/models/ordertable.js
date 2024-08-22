@@ -48,5 +48,6 @@ module.exports = sequelize.define('orderTable',{
   }
 },{
   freezeTableName:true,
+  timestamps: true,
   modelName:'orderTable'
 })

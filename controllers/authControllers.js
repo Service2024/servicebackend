@@ -81,8 +81,8 @@ const Login = async (req, res) => {
                 message: "Email or password wrong"
             })
         }
-
-        const token = await jwt.sign({ id: checkUser.id }, process.env.SECRET_KEY, ({ expiresIn: '1h' }))
+        console.log(checkUser.usertype)
+        const token = await jwt.sign({ id: checkUser.id, usertype:checkUser.usertype }, process.env.SECRET_KEY, ({ expiresIn: '1h' }))
         await checkUser.update({ token })
 
         res.status(200).json({
@@ -184,18 +184,51 @@ const UpdateProfile = async (req,res)=>{
     try{
         const userId=req.user.id;
 
-        const {firstname,lastname,email,phonenumber,password}=req.body;
-        if(!firstname,!lastname,!email,!phonenumber,!password){
+        const {firstname,lastname,email,phonenumber}=req.body;
+        if(!firstname,!lastname,!email,!phonenumber){
             return res.json({
                 message: "Please fill all fields"
             })
+        }
+
+        const exitsUser=await UserDatabase.findOne({
+            where:{
+                id:userId
+            }
+        })
+
+        if(email!==exitsUser.email){
+            const existsemail=await UserDatabase.findOne({
+                where:{
+                    email:email
+                }
+            }) 
+            if (existsemail) {
+                return res.status(409).json({
+                    message: "Email already exists"
+                });
+            }
+
+        }
+        
+        if(phonenumber!==exitsUser.phonenumber){
+            const existsphoneNumber=await UserDatabase.findOne({
+                where:{
+                    phonenumber:phonenumber
+                }
+            })
+            if(existsphoneNumber){
+                return res.status(409).json({
+                    message: "Phonenumber already exists"
+                })
+            }
+    
         }
          const update_values={}
         if(firstname) update_values.firstname=firstname
         if(lastname) update_values.lastname=lastname
         if(email) update_values.email=email
         if(phonenumber) update_values.phonenumber=phonenumber
-        if(password) update_values.password=await bcrypt.hash(password,salt)
 
         const[rowupdates]=await UserDatabase.update(update_values,{where:{id:userId}})
         if(!rowupdates){
@@ -214,5 +247,6 @@ const UpdateProfile = async (req,res)=>{
         })
     }
 }
+
 
 module.exports = { Signup, Login, Profile,UpdateProfile,Forgotpassword,Updatepassword }

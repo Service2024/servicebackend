@@ -47,9 +47,17 @@ module.exports = sequelize.define("serviceDetailstable",{
     },
     onUpdate:"CASCADE",
     onDelete:"CASCADE"
+  },
+  createdAt: {
+    allowNull: false,
+    type: Sequelize.DATE
+  },
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE
   }
-
 },{
   freezeTableName:true,
+  timestamps: true,
   modelName:"serviceDetailstable"
 })

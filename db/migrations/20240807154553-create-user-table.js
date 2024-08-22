@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       phonenumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       password: {
         type: Sequelize.STRING
@@ -32,6 +32,14 @@ module.exports = {
       },
       usertype: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },

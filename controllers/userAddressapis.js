@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const AddressDatabase = require('../db/models/address_table')
 const UserDatabase = require('../db/models/usertable')
 const Allservices=require('../db/models/servicedetailstable')
@@ -45,7 +44,8 @@ const getUserAddress = async (req, res) => {
         })
 
         res.status(200).json({
-            message: getDetails
+            message: "get address",
+            data:getDetails
         })
     } catch (error) {
         res.status(500).json({
