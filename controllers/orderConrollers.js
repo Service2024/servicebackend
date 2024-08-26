@@ -117,7 +117,6 @@ const updateOrderDetails=async(req,res)=>{
         const upOrder=await orderData.update(updateORder,{
             where:{id:IdParams,service_id:service_id}
         })
-        console.log(upOrder)
         if(upOrder){
             res.status(200).json({
                 message: "Data worker data retrieved successfully",
