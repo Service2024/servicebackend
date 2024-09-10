@@ -3,40 +3,38 @@ const {
   Model,Sequelize
 } = require('sequelize');
 const sequelize=require('../../config/database')
-module.exports = sequelize.define('orderTable',{
+module.exports = sequelize.define('reviewTable',{
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
     type: Sequelize.INTEGER
   },
-  orderuser_id: {
+  userID: {
     type: Sequelize.INTEGER,
     allowNull:false,
     references:{
-      Model:'user_table',
+      model:'UserTable',
       key:'id'
     },
-    onUpdate:"CASCADE",
-    onDelete:"CASCADE"
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
   },
-  service_id: {
+  order_ID: {
     type: Sequelize.INTEGER,
     allowNull:false,
     references:{
-      Model:'serviceDetailstable',
+      model:'orderTable',
       key:'id'
     },
-    onUpdate:"CASCADE",
-    onDelete:"CASCADE"
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
   },
-  status: {
-    type: Sequelize.INTEGER,
-    defaultValue:0
+  points: {
+    type: Sequelize.STRING
   },
-  servicemessage: {
-    type: Sequelize.STRING,
-    defaultValue:"Request waiting...."
+  comment: {
+    type: Sequelize.STRING
   },
   createdAt: {
     allowNull: false,
@@ -45,13 +43,9 @@ module.exports = sequelize.define('orderTable',{
   updatedAt: {
     allowNull: false,
     type: Sequelize.DATE
-  },
-  paymentstatus:{
-    type:Sequelize.STRING,
-    defaultValue:0
   }
 },{
+  modelName:"reviewTable",
   freezeTableName:true,
-  timestamps: true,
-  modelName:'orderTable'
+  timestamps:true
 })

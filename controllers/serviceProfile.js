@@ -108,7 +108,6 @@ const deleteService=async(req,res)=>{
 
 const getallServiceData= async(req,res)=>{
     try{
-        const userId = req.user.id;
         const getalldata=await serviceDatabase.findAll()
 
         if(getalldata.length>0){

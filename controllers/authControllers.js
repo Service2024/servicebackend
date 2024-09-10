@@ -2,6 +2,15 @@ const bcrypt = require('bcrypt')
 const UserDatabase = require('../db/models/usertable')
 const salt = 15
 const jwt = require('jsonwebtoken')
+const nodemailer=require('nodemailer')
+
+const transpoter=nodemailer.createTransport({
+    service:'Gmail',
+    auth:{
+        user:'cheeraganesh1995@gmail.com',
+        pass:'arrg begf poyg alvn'
+    }
+})
 
 const Signup = async (req, res) => {
     try {
@@ -105,17 +114,26 @@ const Forgotpassword= async(req,res)=>{
             where:{email}
         })
         if(!checkuser){
-            return res.json(
+            return res.status(401).json(
                 {
                     message:"Email not found"
                 }
             )
         }else{
-            const createUpdatetoken= await jwt.sign({id:checkuser.id},process.env.SECRET_KEY,{expiresIn:'5m'})
+            const createUpdatetoken= jwt.sign({id:checkuser.id},process.env.SECRET_KEY,{expiresIn:'5m'})
             await checkuser.update({ updatetoken:createUpdatetoken },{id:checkuser.id})
+            
+            const mailOption={
+                from:'cheeraganesh1995@gmail.com',
+                to:email,
+                subject:"Password Reset Request",
+                text:`http://localhost:5173/upassword/${createUpdatetoken}`,
+            }
+            
+            await transpoter.sendMail(mailOption)
             return res.json(
                 {
-                    message:createUpdatetoken
+                    message:`http://localhost:5173/upassword/${createUpdatetoken}`
                 }
             )
             
@@ -151,10 +169,11 @@ const Updatepassword=async(req,res)=>{
             where:{id:decode.id}
         })
 
-        res.status(200).json({
-            message:"password updated sucessfully"
-        })
-
+        if(updateUserpassword){
+            res.status(200).json({
+                message:"password updated sucessfully"
+            })
+        }
     }catch (error) {
         res.status(500).json({
             message: `${error}`
